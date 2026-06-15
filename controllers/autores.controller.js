@@ -1,4 +1,5 @@
 const autorModel = require('../models/autorModel');
+const postModel = require('../models/postModel');
 
 const getAutores = async (req, res) => {
   try {
@@ -30,7 +31,19 @@ const createAutor = async (req, res) => {
   }
 };
 
+const getPostsPorAutor = async (req, res) => {
+  try {
+    const { autorId } = req.params;
+    const posts = await postModel.obtenerPorAutor(autorId);
+    res.json(posts);
+  } catch (error) {
+    console.error('Error al listar posts del autor:', error.message);
+    res.status(500).json({ mensaje: 'Error al obtener los posts del autor' });
+  }
+};
+
 module.exports = {
   getAutores,
   createAutor,
+  getPostsPorAutor,
 };

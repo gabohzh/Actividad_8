@@ -32,6 +32,17 @@ async function obtenerTodos() {
   }));
 }
 
+async function obtenerPorAutor(autorId) {
+  const [filas] = await pool.query(
+    `SELECT id, titulo, descripcion, fecha_creacion, categoria, autor_id
+     FROM posts
+     WHERE autor_id = ?
+     ORDER BY fecha_creacion DESC`,
+    [autorId]
+  );
+  return filas;
+}
+
 async function crear(titulo, descripcion, categoria, autorId) {
   const [resultado] = await pool.query(
     'INSERT INTO posts (titulo, descripcion, categoria, autor_id) VALUES (?, ?, ?, ?)',
@@ -42,5 +53,6 @@ async function crear(titulo, descripcion, categoria, autorId) {
 
 module.exports = {
   obtenerTodos,
+  obtenerPorAutor,
   crear,
 };

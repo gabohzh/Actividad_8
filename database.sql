@@ -1,0 +1,19 @@
+CREATE DATABASE IF NOT EXISTS blog_db;
+USE blog_db;
+
+CREATE TABLE autores (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  imagen VARCHAR(500)
+);
+
+CREATE TABLE posts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(255) NOT NULL,
+  descripcion TEXT,
+  fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
+  categoria VARCHAR(100),
+  autor_id INT NOT NULL,
+  FOREIGN KEY (autor_id) REFERENCES autores(id)
+);
